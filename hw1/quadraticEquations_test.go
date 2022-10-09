@@ -5,14 +5,22 @@ import (
 )
 
 func TestSolveDBelowZero(t *testing.T) {
-	if len(Solve(1, 0, 1)) != 0 {
+	result, err := Solve(1, 0, 1)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(result) != 0 {
 		t.Fatal("D = 0, no solution")
 	}
 }
 
 func TestSolveDAboveZero(t *testing.T) {
 
-	result := Solve(1, 0, -1)
+	result, err := Solve(1, 0, -1)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	if len(result) != 2 {
 		t.Fatal("D > 0, must be 2 solutions")
@@ -25,7 +33,10 @@ func TestSolveDAboveZero(t *testing.T) {
 
 func TestSolveDEqualZero(t *testing.T) {
 
-	result := Solve(1, 2, 1)
+	result, err := Solve(1, 2, 1)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	if len(result) != 1 {
 		t.Fatal("D = 0, must be 1 solutions")
@@ -33,5 +44,17 @@ func TestSolveDEqualZero(t *testing.T) {
 		if !(Compare(result[0], -1)) {
 			t.Fatalf("x1 must be -1, result[x1] = %f \n", result[0])
 		}
+	}
+}
+
+func TestSolveAEqualZero(t *testing.T) {
+	var a float64 = 0
+	_, err := Solve(a, 2, 1)
+	if err != nil {
+		if err.Error() != ZeroAError {
+			t.Fatalf("Unknown error: %s \n", err.Error())
+		}
+	} else {
+		t.Fatalf("A argument isn`t equal to 0, a = %f", a)
 	}
 }
