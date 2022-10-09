@@ -2,6 +2,7 @@ package hw1
 
 import (
 	"errors"
+	"fmt"
 	"math"
 	"sort"
 )
@@ -9,6 +10,7 @@ import (
 const (
 	float64EqualityThreshold = 1e-7
 	ZeroAError               = "A argument is equal to 0"
+	MaxFloatError            = "Max float %s argument %f"
 )
 
 func Compare(x, y float64) bool {
@@ -22,6 +24,18 @@ func Solve(a, b, c float64) ([]float64, error) {
 
 	if Compare(a, 0) {
 		return nil, errors.New(ZeroAError)
+	}
+
+	if Compare(math.Abs(a), math.MaxFloat64) {
+		return nil, errors.New(fmt.Sprint(MaxFloatError, "a", a))
+	}
+
+	if Compare(math.Abs(b), math.MaxFloat64) {
+		return nil, errors.New(fmt.Sprint(MaxFloatError, "b", b))
+	}
+
+	if Compare(math.Abs(c), math.MaxFloat64) {
+		return nil, errors.New(fmt.Sprint(MaxFloatError, "c", c))
 	}
 
 	D := b*b - 4*a*c

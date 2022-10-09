@@ -1,6 +1,8 @@
 package hw1
 
 import (
+	"fmt"
+	"math"
 	"testing"
 )
 
@@ -67,5 +69,41 @@ func TestSolveDLessFloat64EqualityThreshold(t *testing.T) {
 
 	if len(result) != 1 {
 		t.Fatalf("D = 0, must be 1 solutions, and there are %d solutions \n", len(result))
+	}
+}
+
+func TestSolveAMaxFloat64(t *testing.T) {
+	a := math.MaxFloat64
+	_, err := Solve(a, 2, 1)
+	if err != nil {
+		if err.Error() != fmt.Sprint(MaxFloatError, "a", a) {
+			t.Fatalf("Unknown error: %s \n", err.Error())
+		}
+	} else {
+		t.Fatalf("A argument isn`t equal to 0, a = %f", a)
+	}
+}
+
+func TestSolveBMaxFloat64(t *testing.T) {
+	b := math.MaxFloat64
+	_, err := Solve(1, b, 1)
+	if err != nil {
+		if err.Error() != fmt.Sprint(MaxFloatError, "b", b) {
+			t.Fatalf("Unknown error: %s \n", err.Error())
+		}
+	} else {
+		t.Fatalf("B argument isn`t equal to 0, a = %f", b)
+	}
+}
+
+func TestSolveCMaxFloat64(t *testing.T) {
+	c := math.MaxFloat64
+	_, err := Solve(1, 2, c)
+	if err != nil {
+		if err.Error() != fmt.Sprint(MaxFloatError, "c", c) {
+			t.Fatalf("Unknown error: %s \n", err.Error())
+		}
+	} else {
+		t.Fatalf("C argument isn`t equal to 0, a = %f", c)
 	}
 }
