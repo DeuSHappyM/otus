@@ -26,6 +26,8 @@ func Solve(a, b, c float64) []float64 {
 		result := []float64{(-b + math.Sqrt(D)) / 2 * a, (-b - math.Sqrt(D)) / 2 * a}
 		sort.Float64s(result)
 		return result
+	case Compare(D, 0):
+		return []float64{(-b + math.Sqrt(D)) / 2 * a}
 	default:
 		return []float64{}
 	}
