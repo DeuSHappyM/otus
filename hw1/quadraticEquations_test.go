@@ -58,3 +58,14 @@ func TestSolveAEqualZero(t *testing.T) {
 		t.Fatalf("A argument isn`t equal to 0, a = %f", a)
 	}
 }
+
+func TestSolveDLessFloat64EqualityThreshold(t *testing.T) {
+	result, err := Solve(1, 2.000000000025, 1)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(result) != 1 {
+		t.Fatalf("D = 0, must be 1 solutions, and there are %d solutions \n", len(result))
+	}
+}

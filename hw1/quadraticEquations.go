@@ -12,11 +12,10 @@ const (
 )
 
 func Compare(x, y float64) bool {
-	if math.Abs(x-y) > float64EqualityThreshold {
-		return false
-	} else {
+	if math.Abs(x-y) < float64EqualityThreshold {
 		return true
 	}
+	return false
 }
 
 func Solve(a, b, c float64) ([]float64, error) {
@@ -30,12 +29,12 @@ func Solve(a, b, c float64) ([]float64, error) {
 	switch {
 	case D < 0:
 		return []float64{}, nil
+	case Compare(D, 0):
+		return []float64{(-b + math.Sqrt(D)) / 2 * a}, nil
 	case D > 0:
 		result := []float64{(-b + math.Sqrt(D)) / 2 * a, (-b - math.Sqrt(D)) / 2 * a}
 		sort.Float64s(result)
 		return result, nil
-	case Compare(D, 0):
-		return []float64{(-b + math.Sqrt(D)) / 2 * a}, nil
 	default:
 		return []float64{}, nil
 	}
